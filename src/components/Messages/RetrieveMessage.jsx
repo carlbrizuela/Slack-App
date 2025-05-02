@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { API_URL } from "../../constants/Constants"
 import { useData } from "../../context/DataProvider"
-import "bootstrap/dist/css/bootstrap.min.css"
 
 function RetrieveMessage(props){
 
    const { receiverID, isMessageSent, setIsMessageSent} = props
    const { userHeaders } = useData()
    const [ messages, setMessages ] = useState([])
+   const messagesEndRef = useRef(null);
    
    const displayMessage = async () => {
 
@@ -19,8 +19,12 @@ function RetrieveMessage(props){
       const response = await axios.get(`${API_URL}/messages?receiver_id=${receiverID}&receiver_class=User`, requestHeaders)
       const { data } = response
       const messageData = data.data
+      
       setMessages(messageData)
-
+      if (messagesEndRef.current) {
+         console.log("scroll")
+         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+       }
       console.log(messageData)
    }catch(error){
       if(error){
@@ -43,7 +47,7 @@ function RetrieveMessage(props){
   }, [isMessageSent])
 
    return(
-      <div className="card-message border border-dark rounded p-10">
+      <div className="card-message border border-dark rounded p-10" ref={messagesEndRef}>
         {
          messages && messages.map((message) => {
             if(message.receiver.id === Number(receiverID)){
@@ -61,6 +65,7 @@ function RetrieveMessage(props){
             }
          })
         }
+        <div ref={messagesEndRef}></div>
       </div>
    )
 }

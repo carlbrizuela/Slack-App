@@ -3,39 +3,40 @@ import { useData } from "../context/DataProvider";
 import axios from "axios";
 import { API_URL } from "../constants/Constants";
 import { useNavigate } from "react-router";
-import "bootstrap/dist/css/bootstrap.min.css"
 
 function Dashboard(props) {
   const { onLogout } = props;
-  const { userHeaders } = useData();
-  const [userList, setUserList] = useState([]);
+  const { getUsers, userList } = useData();
+//const [userList, setUserList] = useState([]); //transferred to data provider
   const [channels, setChannels] = useState([]);
   const [channelName, setChannelName] = useState("");
   const navigate = useNavigate();
 
-  const getUsers = async () => {
-    try {
+// -------------------------------Transferred to data provider-----------------------------------------------
+//   const getUsers = async () => {
+//     try {
 
-      const requestHeaders = {
-        headers: userHeaders
-      };
-      const response = await axios.get(`${API_URL}/users`, requestHeaders);
-      const { data } = response;
-      setUserList(data.data);
+//       const requestHeaders = {
+//         headers: userHeaders
+//       };
+//       const response = await axios.get(`${API_URL}/users`, requestHeaders);
+//       const { data } = response;
+//       setUserList(data.data);
 
-    } catch (error) {
-      if(error) {
-        return alert("Cannot get users");
-      }
-    }
-  }
+//     } catch (error) {
+//       if(error) {
+//         return alert("Cannot get users");
+//       }
+//     }
+//   }
+// --------------------------------------------------------------------------------
 
   const fetchChannels = async () => {
     try {
         const response = await axios.get(`${API_URL}/channels`);
         setChannels(response.data);
     } catch (error) {
-        return alert("Error fetching channel");
+        return console.log("Error fetching channel");
     }
   };
 

@@ -4,15 +4,15 @@ import { useNavigate } from "react-router"
 import { useData } from "../../context/DataProvider"
 import axios from "axios"
 import { API_URL } from "../../constants/Constants"
-import "bootstrap/dist/css/bootstrap.min.css"
 
 function Message(){
 
    const [ receiverID, setReceiverID ] = useState()
+   const [ receiverEmail, setReceiverEmail ] = useState()
    const [message, setMessage ] = useState('')
    const [isReceiverSet, setIsReceiverSet] = useState(false)
    const [ isMessageSent, setIsMessageSent ] = useState(false)
-   const { userHeaders } = useData()
+   const { userHeaders, userList } = useData()
    const navigate = useNavigate()
 
    const handleSubmit = async (e) => {
@@ -49,18 +49,39 @@ function Message(){
 
    const handleReceiver = (e) => {
       e.preventDefault();
-      setIsReceiverSet(true)
+      const receiverInfo = userList.filter(user => user.email === receiverEmail)
+      if(receiverInfo.length !== 0){
+         setReceiverID(receiverInfo[0].id)
+         setIsReceiverSet(true)
+      }else{
+         alert ("user does not exist")
+      }
    }
 
    const goBack = () =>{
       navigate("/dashboard")
    }
+
    return(
+      <div>
+      {/* <div>{userList.length > 0 ? (
+        userList.map((individual) => {
+          const { id, email } = individual;
+          return (
+            <div key={id}>
+              <p>ID: {id}</p>
+              <p>Email: {email}</p>
+            </div>
+          );
+        })
+      ) : (
+        <p>No users available...</p>
+      )}</div> */}
       <div className="w-50 h-100 position-relative start-50">
          <button onClick={goBack}>Back</button>
          {!isReceiverSet && <form onSubmit={handleReceiver}>
             <label>To:</label>
-            <input type="number" onChange={(e) => setReceiverID(e.target.value)} />
+            <input type="text" onChange={(e) => setReceiverEmail(e.target.value)} />
          </form>
          }
          {!isReceiverSet && 
@@ -70,7 +91,7 @@ function Message(){
 
          {
             isReceiverSet && <div>
-               <h2>To: {receiverID}</h2> 
+               <h2>To: {receiverEmail}</h2> 
                <RetrieveMessage receiverID={receiverID} isMessageSent={isMessageSent} setIsMessageSent={setIsMessageSent}/>
             </div>
          }
@@ -80,6 +101,7 @@ function Message(){
             <button type="submit" className="btn btn-primary" disabled={message ? false:true}>Send</button>
          </form>
          
+      </div>
       </div>
    )
 }

@@ -1,9 +1,12 @@
 import { useState, createContext, useContext} from "react";
+import axios from "axios";
+import { API_URL } from "../constants/Constants";
 
 const DataContext = createContext();
 
 const DataProvider = ({children}) => {
     const [ userHeaders, setUserHeaders ] = useState('')
+
 
     const handleHeaders = (header) => {
         const updatedHeader = {
@@ -14,12 +17,33 @@ const DataProvider = ({children}) => {
         }
         setUserHeaders(updatedHeader)
     }
+// ------------------Code from Dashboard.jsx-------------------------------------------- //
 
+const [userList, setUserList] = useState([])
+const getUsers = async () => {
+   try {
+
+     const requestHeaders = {
+       headers: userHeaders
+     };
+     const response = await axios.get(`${API_URL}/users`, requestHeaders);
+     const { data } = response;
+     setUserList(data.data);
+
+   } catch (error) {
+     if(error) {
+       return alert("Cannot get users");
+     }
+   }
+ }
+// --------------------------------------------------------------------------//
     return (
         <DataContext.Provider value={
             {
                 handleHeaders,
                 userHeaders,
+                userList,//from dashboard
+                getUsers // from dashboard
             }
         }>
             {children}
