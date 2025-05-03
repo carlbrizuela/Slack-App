@@ -14,17 +14,18 @@ function InputUser(props) {
     const tempEmailList = userList.map((user) => {
       return user.email
     })
-    const tempChannelList = channels.data.map((channel) => {
+    const tempChannelList = channels.map((channel) => {
       return channel.name
     })
 
-    const receiverList = tempEmailList.concat(tempChannelList)
+    const receiverList = tempEmailList.concat(tempChannelList);
 
-    console.log(tempEmailList)
-    console.log(tempChannelList)
-    console.log(receiverList)
-    setEmailList(receiverList)
-  }, [userList])
+    console.log(tempEmailList);
+    console.log(tempChannelList);
+    console.log(receiverList);
+
+    setEmailList(receiverList);
+  }, [userList, channels]);
 
   return (
     <Autocomplete

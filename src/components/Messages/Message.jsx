@@ -50,7 +50,7 @@ function Message() {
     e.preventDefault();
 
     const receiverUserInfo = userList.filter(user => user.email === receiverEmail)
-    const receiverChannelInfo = channels.data.filter(user => user.name === receiverEmail)
+    const receiverChannelInfo = channels.filter(user => user.name === receiverEmail)
 
     if (receiverUserInfo.length !== 0) {
       setReceiverID(receiverUserInfo[0].id)

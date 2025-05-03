@@ -11,6 +11,8 @@ function Dashboard(props) {
 //const [channels, setChannels] = useState([]);
   const [channelName, setChannelName] = useState("");
   const navigate = useNavigate();
+  const [showAllUsers, setShowAllUsers] = useState(false);
+  const [showAllChannels, setShowAllChannels] = useState(false);
 
 // -------------------------------Transferred to data provider-----------------------------------------------
 //   const getUsers = async () => {
@@ -69,22 +71,29 @@ function Dashboard(props) {
       <p>Welcome, </p>
       <button onClick={sendMessage}>Message</button>
       <button onClick={onLogout}>Logout</button>
-
+  
       <h3>Slack Users</h3>
-      {userList.length > 0 ? (
-        userList.map((individual) => {
-          const { id, email } = individual;
-          return (
-            <div key={id}>
-              <p>ID: {id}</p>
-              <p>Email: {email}</p>
-            </div>
-          );
-        })
+      {Array.isArray(userList) && userList.length > 0 ? (
+        <>
+          {userList.slice(0, showAllUsers ? userList.length : 5).map((individual) => {
+            const { id, email } = individual;
+            return (
+              <div key={id}>
+                <p>ID: {id}</p>
+                <p>Email: {email}</p>
+              </div>
+            );
+          })}
+          {userList.length > 5 && (
+            <button onClick={() => setShowAllUsers(!showAllUsers)}>
+              {showAllUsers ? "Show Less" : "Show All"}
+            </button>
+          )}
+        </>
       ) : (
         <p>No users available...</p>
       )}
-
+  
       <h3>Create Channel</h3>
       <input
         value={channelName}
@@ -92,22 +101,22 @@ function Dashboard(props) {
         placeholder="Enter channel name"
       />
       <button onClick={handleCreate}>Create</button>
-
+  
       <h3>Your Channels</h3>
-      {channels.length > 0 ? (
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-          {channels.map((ch) => (
-            <li
-              key={ch._id}
-              onClick={() => navigate(`/channel/${ch._id}`)}
-              style={{ cursor: "pointer", margin: "5px 0" }}
-            >
-              {ch.name}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No channels found.</p>
+    {Array.isArray(channels) && channels.length > 0 ? (
+      <ul style={{ listStyleType: "none", padding: 0 }}>
+        {channels.map((ch) => (
+          <li
+            key={ch._id}
+            onClick={() => navigate(`/channel/${ch._id}`)}
+            style={{ cursor: "pointer", margin: "5px 0" }}
+          >
+            {ch.name}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No channels found.</p>
       )}
     </div>
   );
