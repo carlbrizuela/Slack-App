@@ -26,7 +26,7 @@ function Message() {
       }
       const requestBody = {
         receiver_id: Number(receiverID),
-        receiver_class: "User",
+        receiver_class: receiverClass,
         body: message
       }
 
