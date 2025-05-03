@@ -60,6 +60,7 @@ function Dashboard(props) {
 
   const sendMessage = () => {
     navigate('/message');
+    console.log(userList)
   }
 
   return (
