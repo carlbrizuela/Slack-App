@@ -20,6 +20,8 @@ const DataProvider = ({children}) => {
 // ------------------Code from Dashboard.jsx-------------------------------------------- //
 
 const [userList, setUserList] = useState([])
+const [channels, setChannels] = useState([]);
+
 const getUsers = async () => {
    try {
 
@@ -36,6 +38,16 @@ const getUsers = async () => {
      }
    }
  }
+
+   const fetchChannels = async () => {
+     try {
+         const response = await axios.get(`${API_URL}/channels`);
+         setChannels(response.data);
+     } catch (error) {
+         return console.log("Error fetching channel");
+     }
+   };
+
 // --------------------------------------------------------------------------//
     return (
         <DataContext.Provider value={
@@ -43,7 +55,9 @@ const getUsers = async () => {
                 handleHeaders,
                 userHeaders,
                 userList,//from dashboard
-                getUsers // from dashboard
+                getUsers, // from dashboard
+                fetchChannels,
+                channels
             }
         }>
             {children}

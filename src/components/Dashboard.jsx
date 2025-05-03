@@ -6,9 +6,9 @@ import { useNavigate } from "react-router";
 
 function Dashboard(props) {
   const { onLogout } = props;
-  const { getUsers, userList } = useData();
+  const { getUsers, userList, channels, fetchChannels } = useData();
 //const [userList, setUserList] = useState([]); //transferred to data provider
-  const [channels, setChannels] = useState([]);
+//const [channels, setChannels] = useState([]);
   const [channelName, setChannelName] = useState("");
   const navigate = useNavigate();
 
@@ -29,17 +29,17 @@ function Dashboard(props) {
 //       }
 //     }
 //   }
+
+
+  // const fetchChannels = async () => {
+  //   try {
+  //       const response = await axios.get(`${API_URL}/channels`);
+  //       setChannels(response.data);
+  //   } catch (error) {
+  //       return console.log("Error fetching channel");
+  //   }
+  // };
 // --------------------------------------------------------------------------------
-
-  const fetchChannels = async () => {
-    try {
-        const response = await axios.get(`${API_URL}/channels`);
-        setChannels(response.data);
-    } catch (error) {
-        return console.log("Error fetching channel");
-    }
-  };
-
   const handleCreate = async () => {
     if (!channelName) return;
     try {

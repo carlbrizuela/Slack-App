@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { useData } from "../../context/DataProvider"
 import axios from "axios"
 import { API_URL } from "../../constants/Constants"
+import InputUser from "./InputUser"
 
 function Message(){
 
@@ -77,11 +78,11 @@ function Message(){
       ) : (
         <p>No users available...</p>
       )}</div> */}
+      
       <div className="w-50 h-100 position-relative start-50">
          <button onClick={goBack}>Back</button>
          {!isReceiverSet && <form onSubmit={handleReceiver}>
-            <label>To:</label>
-            <input type="text" onChange={(e) => setReceiverEmail(e.target.value)} />
+            <InputUser receiverEmail={receiverEmail} setReceiverEmail={setReceiverEmail}/>
          </form>
          }
          {!isReceiverSet && 

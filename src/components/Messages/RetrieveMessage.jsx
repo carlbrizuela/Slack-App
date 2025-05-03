@@ -24,7 +24,8 @@ function RetrieveMessage(props){
       if (messagesEndRef.current) {
          console.log("scroll")
          messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-       }
+      }
+      
       console.log(messageData)
    }catch(error){
       if(error){
