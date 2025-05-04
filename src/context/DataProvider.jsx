@@ -19,7 +19,7 @@ const DataProvider = ({ children }) => {
   }
   // ------------------Code from Dashboard.jsx-------------------------------------------- //
 
-  const [userList, setUserList] = useState([])
+  const [userList, setUserList] = useState([]);
   const [channels, setChannels] = useState([]);
 
   const getUsers = async () => {
