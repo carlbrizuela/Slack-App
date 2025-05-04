@@ -9,7 +9,7 @@ import InputUser from "./InputUser"
 function Message() {
 
   const [receiverID, setReceiverID] = useState()
-  const [receiverEmail, setReceiverEmail] = useState('')
+  const [receiverInfo, setReceiverInfo] = useState('')
   const [message, setMessage] = useState('')
   const [receiverClass, setReceiverClass] = useState('')
   const [isReceiverSet, setIsReceiverSet] = useState(false)
@@ -49,8 +49,8 @@ function Message() {
   const handleReceiver = (e) => {
     e.preventDefault();
 
-    const receiverUserInfo = userList.filter(user => user.email === receiverEmail)
-    const receiverChannelInfo = channels.data.filter(user => user.name === receiverEmail)
+    const receiverUserInfo = userList.filter(user => user.email === receiverInfo)
+    const receiverChannelInfo = channels.filter(user => user.name === receiverInfo)
 
     if (receiverUserInfo.length !== 0) {
       setReceiverID(receiverUserInfo[0].id)
@@ -90,7 +90,7 @@ function Message() {
         {
           !isReceiverSet &&
           <form onSubmit={handleReceiver}>
-            <InputUser receiverEmail={receiverEmail} setReceiverEmail={setReceiverEmail} />
+            <InputUser receiverInfo={receiverInfo} setReceiverInfo={setReceiverInfo} />
           </form>
         }
 
@@ -102,7 +102,7 @@ function Message() {
         {
           isReceiverSet &&
           <div>
-            <h2>To: {receiverEmail}</h2>
+            <h2>To: {receiverInfo}</h2>
             <RetrieveMessage receiverID={receiverID} receiverClass={receiverClass} isMessageSent={isMessageSent} setIsMessageSent={setIsMessageSent} />
           </div>
         }

@@ -40,23 +40,21 @@
 .msg_container{
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 10px;
+  margin-left: 0.25rem;
   border-radius: 10px;
-  background-color: #82ccdd;
+  background-color: #bebebe;
   padding: 10px;
   position: relative;
-  max-width: 50%;
 }
 
 .msg_container_send{
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: 10px;
+  margin-right: 0.25rem;
   border-radius: 10px;
-  background-color: #bebebe;
+  background-color: #82ccdd;
   padding: 10px;
   position: relative;
-  max-width: 50%;
 }
 
 .card-message{

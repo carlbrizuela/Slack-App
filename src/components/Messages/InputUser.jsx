@@ -6,35 +6,37 @@ import { useState, useEffect } from 'react';
 
 function InputUser(props) {
 
-  const [emailList, setEmailList] = useState()
-  const { receiverEmail, setReceiverEmail } = props
+  const [emailList, setEmailList] = useState([])
+  const { receiverInfo, setReceiverInfo } = props
   const { userList, channels } = useData()
 
   useEffect(() => {
     const tempEmailList = userList.map((user) => {
       return user.email
     })
-    const tempChannelList = channels.data.map((channel) => {
-      return channel.name
-    })
-
-    const receiverList = tempEmailList.concat(tempChannelList)
-
-    console.log(tempEmailList)
-    console.log(tempChannelList)
-    console.log(receiverList)
-    setEmailList(receiverList)
-  }, [userList])
+    if (channels) {
+      const tempChannelList = channels.map((channel) => {
+        return channel.name
+      })
+      const receiverList = tempEmailList.concat(tempChannelList)
+      setEmailList(receiverList)
+    } else {
+      setEmailList(tempEmailList)
+    }
+  }, [userList, channels])
 
   return (
-    <Autocomplete
-      disablePortal
-      value={receiverEmail}
-      onChange={(event, email) => setReceiverEmail(email)}
-      options={emailList}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Email" />}
-    />
+    <div>
+      {console.log(emailList)}
+      <Autocomplete
+        disablePortal
+        value={receiverInfo}
+        onChange={(event, email) => setReceiverInfo(email)}
+        options={emailList}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Email" />}
+      />
+    </div>
   );
 }
 
