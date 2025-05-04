@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Message from "./components/Messages/Message";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css";
+import Register from "./components/Register"
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,6 +39,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/dashboard"
             element={

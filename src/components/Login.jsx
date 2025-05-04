@@ -42,6 +42,10 @@ function Login(props) {
     }
   };
 
+  const handleRegister = () => {
+    navigate('/register')
+  } 
+
   return (
     <div style={{ textAlign: "center" }}>
       <h2>Login</h2>
@@ -64,6 +68,7 @@ function Login(props) {
         </div>
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleRegister}>Register</button>
     </div>
   );
 }
