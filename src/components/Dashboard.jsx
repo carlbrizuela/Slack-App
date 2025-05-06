@@ -42,16 +42,16 @@ function Dashboard(props) {
   //   }
   // };
 // --------------------------------------------------------------------------------
-  const handleCreate = async () => {
-    if (!channelName) return;
-    try {
-        await axios.post(`${API_URL}/channels`, { name: channelName });
-        setChannelName("");
-        fetchChannels();
-    } catch (error) {
-        return alert("Error creating channel")
-    }
-  };
+  // const handleCreate = async () => {
+  //   if (!channelName) return;
+  //   try {
+  //       await axios.post(`${API_URL}/channels`, { name: channelName });
+  //       setChannelName("");
+  //       fetchChannels();
+  //   } catch (error) {
+  //       return alert("Error creating channel")
+  //   }
+  // };
 
   useEffect(() => {
     if(userList.length === 0){
@@ -64,6 +64,10 @@ function Dashboard(props) {
     navigate('/message');
     console.log(userList)
   }
+
+  const navigateToChannelCreate = () => {
+    navigate("/channel/create");
+  };
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -95,20 +99,15 @@ function Dashboard(props) {
       )}
   
       <h3>Create Channel</h3>
-      <input
-        value={channelName}
-        onChange={(e) => setChannelName(e.target.value)}
-        placeholder="Enter channel name"
-      />
-      <button onClick={handleCreate}>Create</button>
+      <button onClick={navigateToChannelCreate}>Create</button>
   
       <h3>Your Channels</h3>
     {Array.isArray(channels) && channels.length > 0 ? (
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {channels.map((ch) => (
           <li
-            key={ch._id}
-            onClick={() => navigate(`/channel/${ch._id}`)}
+            key={ch.id}
+            onClick={() => navigate(`/channel/${ch.id}`)}
             style={{ cursor: "pointer", margin: "5px 0" }}
           >
             {ch.name}
