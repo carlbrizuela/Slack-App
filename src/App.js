@@ -63,6 +63,7 @@ function App() {
           {/* You can add other routes like /message, /channel/:id here */}
         </Routes>
       </Router>
+      <div>Email</div>
     </DataProvider>
   );
 }
