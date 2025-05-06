@@ -9,9 +9,13 @@ import DataProvider from "./context/DataProvider";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Message from "./components/Messages/Message";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Register from "./components/Register"
+import Register from "./components/Register";
+import Channel from "./components/Channel";
+import ChannelCreate from "./components/ChannelCreate";
+import ChannelAddMember from "./components/ChannelAddMember";
+import { useParams } from "react-router";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,6 +27,11 @@ function App() {
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
+
+  function ChannelAddMemberWrapper() {
+    const { id } = useParams();
+    return <ChannelAddMember channelId={Number(id)} />;
+  }
 
   return (
     <DataProvider>
@@ -60,6 +69,43 @@ function App() {
               )
             }
           />
+          <Route
+            path="/channel"
+            element={
+              isAuthenticated ? (
+                <Channel onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/channel/create"
+            element={
+              isAuthenticated ? <ChannelCreate /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/channel/add-member"
+            element={
+              isAuthenticated ? <ChannelAddMember /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/channel/:id"
+            element={isAuthenticated ? <Channel /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/channel/:id/add-member"
+            element={
+              isAuthenticated ? (
+                <ChannelAddMemberWrapper />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+
           {/* You can add other routes like /message, /channel/:id here */}
         </Routes>
       </Router>
