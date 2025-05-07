@@ -73,30 +73,43 @@ function Register() {
     navigate("/login")
   }
   return (
-    <div className="d-flex flex-column w-50 mx-auto text-center">
-      <h1> Register </h1>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input type="email" onBlur={handleEmail} required />
-        <div style={{ color: "red" }}>{emailErrorMessage}</div>
+    <div className="w-100 d-flex flex-column mx-auto align-items-center">
+      <div className="input-form">
+        <h2 className="mb-4">Register</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating">
+            <input className="form-control" placeholder="name@example.com" type="email" onChange={handleEmail} required />
+            <label>Email</label>
+          </div>
+          <div className="mt-1 mb-3 small" style={{ color: "red" }}>{emailErrorMessage}</div>
+          <div className="form-floating">
+            <input className="form-control" placeholder="Password" type="password" value={password} onChange={handlePassword} required />
+            <label>Password</label>
+          </div>
+          <div className="mt-1 mb-3 small" style={{ color: "red" }}>{passwordErrorMessage}</div>
 
-        <label>Password</label>
-        <input type="password" value={password} onChange={handlePassword} required />
-        <div style={{ color: "red" }}>{passwordErrorMessage}</div>
-
-        <label>Confirm Password</label>
-        <input
-          disabled={passwordErrorMessage && (!password || password.length < 6) ? true : false}
-          type="password"
-          value={confirmPassword}
-          onChange={handleConfirmPassword}
-          required
-        />
-
-        <div style={{ color: isSamePassword ? "green" : "red" }}>{confirmPasswordMessage}</div>
-        <button type="submit" disabled={isSamePassword ? false : true}>Register</button>
-      </form>
-      <button className="w-50 mx-auto"onClick={goBack}>Back</button>
+          <div className="form-floating">
+            <input
+              className="form-control"
+              placeholder="Confirm Password"
+              disabled={passwordErrorMessage && (!password || password.length < 6) ? true : false}
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPassword}
+              required
+            />
+            <label>Confirm Password</label>
+          </div>
+          <div className="mt-1 mb-3 small" style={{ color: isSamePassword ? "green" : "red" }}>{confirmPasswordMessage}</div>
+          <button className="btn btn-primary w-100 mt-1" type="submit" disabled={isSamePassword ? false : true}>Register</button>
+        </form>
+      </div>
+      <div className="mt-3">
+        <p className="mt-0">
+          Already have an account?
+          <span id="register-button" onClick={goBack} className="fw-bold"> Login </span>
+        </p>
+      </div>
     </div>
   )
 }

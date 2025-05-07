@@ -44,31 +44,45 @@ function Login(props) {
 
   const handleRegister = () => {
     navigate('/register')
-  } 
+  }
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={handleRegister}>Register</button>
+    <div className="w-100 d-flex flex-column mx-auto align-items-center">
+      <div className="input-form">
+        <h2 className="mb-4">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div class="form-floating mb-3 w-100">
+            <input
+              id="floatingEmail"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              placeholder="name@example.com"
+            />
+            <label for="floatingEmail">Email</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              id="floatingPassword"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              placeholder="password"
+            />
+            <label for="floatingPassword">Password:</label>
+          </div>
+
+          <button className="btn btn-primary w-100" type="submit">Login</button>
+        </form>
+      </div>
+      <div className="mt-3">
+        <p className="mt-0">
+          Don't have an account?
+          <span id="register-button" onClick={handleRegister} className="fw-bold"> Register</span>
+        </p>
+      </div>
     </div>
   );
 }

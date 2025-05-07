@@ -34,6 +34,7 @@ function App() {
   }
 
   return (
+    <div className="d-flex align-items-center h-100">
     <DataProvider>
       <Router>
         <Routes>
@@ -105,12 +106,11 @@ function App() {
               )
             }
           />
-
           {/* You can add other routes like /message, /channel/:id here */}
         </Routes>
       </Router>
-      <div>Email</div>
     </DataProvider>
+    </div>
   );
 }
 
