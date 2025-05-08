@@ -71,21 +71,7 @@ function Message() {
   }
 
   return (
-    <div>
-      {/* <div>{userList.length > 0 ? (
-        userList.map((individual) => {
-          const { id, email } = individual;
-          return (
-            <div key={id}>
-              <p>ID: {id}</p>
-              <p>Email: {email}</p>
-            </div>
-          );
-        })
-      ) : (
-        <p>No users available...</p>
-      )}</div> */}
-
+    <div className="w-100">
       <div className="w-50 h-100 position-relative start-50">
         <button onClick={goBack}>Back</button>
         {

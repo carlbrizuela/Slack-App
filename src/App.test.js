@@ -1,20 +1,27 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import DataProvider from "./context/DataProvider";
-import Dashboard from "./components/Dashboard";
+import { render, screen } from '@testing-library/react';
+import App from "./App"
+import { jest } from "@testing-library/jest-dom"
+import {BrowserRouter, MemoryRouter} from 'react-router-dom'
 import Login from "./components/Login";
-import Message from "./components/Messages/Message";
-import "bootstrap/dist/css/bootstrap.min.css"
-import "./App.css";
-import Register from "./components/Register"
+import '@testing-library/jest-dom'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText("Email");
-  expect(linkElement).toBeInTheDocument();
-});
+test('full app rendering/navigating', async () => {
+  render(<App />, {wrapper: BrowserRouter})
+
+  // verify page content for default route
+  expect(screen.getByText("Login").toBeInTheDocument())
+
+})
+
+// test('renders Login Page', () => {
+//   Login.mockImplementation(() => <h1>Login</h1>);
+
+//   render(
+//     <MemoryRouter initialEntries={['/login']}>
+//       <App />
+//     </MemoryRouter>
+//   );
+//   const linkElement = screen.getByText("Login");
+//   expect(linkElement).toBeInTheDocument();
+// });

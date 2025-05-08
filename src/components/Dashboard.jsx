@@ -70,7 +70,7 @@ function Dashboard(props) {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div className="w-100" style={{ textAlign: "center" }}>
       <h2>Dashboard</h2>
       <p>Welcome, </p>
       <button onClick={sendMessage}>Message</button>
