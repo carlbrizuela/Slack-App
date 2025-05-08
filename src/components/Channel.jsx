@@ -69,9 +69,7 @@ function Channel() {
       const response = await axios.get(`${API_URL}/channels/${id}`, {
         headers: userHeaders,
       });
-      console.log("Full response from channel endpoint:", response.data);
       const members = response.data.data?.channel_members || [];
-      console.log("Members fetched:", members);
 
       const membersWithEmails = members.map((member) => {
         const matchedUser = userList.find(user => user.id === member.user_id);
@@ -85,10 +83,6 @@ function Channel() {
     } catch (error) {
       alert("Failed to fetch channel members");
     }
-  };
-
-  const handleMemberAdded = () => {
-    fetchChannelMembers(channelID); // Re-fetch the members after adding
   };
 
   const goBack = () => {
@@ -107,66 +101,61 @@ function Channel() {
       navigate("/dashboard");
     }
   }, [channels, id, navigate, location.key]);
-  
-  console.log("Rendering channel members:", channelMembers);
 
   return (
-    <div className="w-50 h-100 position-relative start-50">
-      <button onClick={goBack}>Back</button>
+    <div className="container-fluid p-4">
+      <button className="btn btn-secondary mb-3" onClick={goBack}>← Back</button>
 
-      {/* {!isChannelSet && (
-        <form onSubmit={handleChannel}>
-          <InputUser receiverInfo={channelName} setReceiverInfo={setChannelName} />
-        </form>
-      )} */}
-
-      {!isChannelSet && (
-        <div className="card-message border border-dark rounded p-10 me-5"></div>
+      {isChannelSet && (
+        <div className="mb-4">
+          <h3 className="text-primary">Channel: #{channelName}</h3>
+          <button className="btn btn-outline-success mt-2" onClick={() => navigate(`/channel/${channelID}/add-member`)}>
+            + Add Member
+          </button>
+        </div>
       )}
 
       {isChannelSet && (
-        <div>
-          <h2>Channel: {channelName}</h2>
+        <div className="mb-4">
+          <h5>Channel Members</h5>
+          {channelMembers.length > 0 ? (
+            <ul className="list-group">
+              {channelMembers.map(member => (
+                <li key={member.id} className="list-group-item">
+                  {member.email}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-muted">No members in this channel.</p>
+          )}
+        </div>
+      )}
+
+      {isChannelSet && (
+        <div className="mb-4">
           <RetrieveMessage
             receiverID={channelID}
             receiverClass="Channel"
             isMessageSent={isMessageSent}
             setIsMessageSent={setIsMessageSent}
           />
-          <button onClick={() => navigate(`/channel/${channelID}/add-member`)}>Add Member</button>
         </div>
       )}
 
-      {isChannelSet && (
-        <div>
-            <h4>Channel Members</h4>
-            {channelMembers.length > 0 ? (
-            <ul>
-            {channelMembers.map(member => (
-            <li key={member.id}>{member.email}</li>
-        ))}
-            </ul>
-        ) : (
-      <p>No members in this channel.</p>
-        )}
-        </div>
-        )}
-
-      {console.log(channelMembers)}
-    
-      <form onSubmit={handleSubmit}>
-        <input
-          type="textarea"
+      <form onSubmit={handleSubmit} className="d-flex flex-column align-items-start gap-2">
+        <textarea
           disabled={!channelID}
-          placeholder="Type message here..."
-          className="text-black w-75 h-100 border-2 border-black col-span-7 p-2"
+          placeholder="Type your message here..."
+          className="form-control w-100"
+          rows="3"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary" disabled={!message}>Send</button>
+        <button type="submit" className="btn btn-primary" disabled={!message}>
+          Send
+        </button>
       </form>
-
-      {/* <ChannelAddMember channelId={channelID} onMemberAdded={handleMemberAdded} /> */}
     </div>
   )
 }
