@@ -38,36 +38,49 @@ function ChannelCreate() {
 //   }
 
 return (
-    <div className="w-50 h-100 position-relative start-50">
-    <button onClick={goBack}>Back</button>
+  <div className="container-fluid d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div className="bg-white p-4 rounded shadow" style={{ width: "100%", maxWidth: "500px" }}>
+      <div className="mb-3 d-flex justify-content-between align-items-center">
+        <h4 className="mb-0">Create a Channel</h4>
+        <button onClick={goBack} className="btn btn-outline-secondary btn-sm">Back</button>
+      </div>
 
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label="Channel Name"
-        variant="outlined"
-        fullWidth
-        value={channelName}
-        onChange={(e) => setChannelName(e.target.value)}
-        required
-        sx={{ width: 300 }}
-      />
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <TextField
+            label="Channel Name"
+            variant="outlined"
+            fullWidth
+            value={channelName}
+            onChange={(e) => setChannelName(e.target.value)}
+            required
+          />
+        </div>
 
-      <Autocomplete
-        multiple
-        options={userList}
-        getOptionLabel={(option) => option.email}
-        value={selectedUsers}
-        onChange={(event, newValue) => setSelectedUsers(newValue)}
-        renderInput={(params) => (
-          <TextField {...params} label="Select users" placeholder="Start typing..." />
-        )}
-        sx={{ width: 300 }}
-      />
+        <div className="mb-4">
+          <Autocomplete
+            multiple
+            options={userList}
+            getOptionLabel={(option) => option.email}
+            value={selectedUsers}
+            onChange={(event, newValue) => setSelectedUsers(newValue)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Select users"
+                placeholder="Start typing..."
+              />
+            )}
+          />
+        </div>
 
-      <button type="submit">Create Channel</button>
-    </form>
+        <button type="submit" className="btn btn-primary w-100">
+          Create Channel
+        </button>
+      </form>
     </div>
-  )
+  </div>
+)
 }
 
 export default ChannelCreate

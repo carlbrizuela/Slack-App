@@ -35,81 +35,85 @@ function App() {
 
   return (
     <div className="d-flex align-items-center h-100">
-    <DataProvider>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              isAuthenticated ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              isAuthenticated ? (
-                <Dashboard onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/message"
-            element={
-              isAuthenticated ? (
-                <Message onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/channel"
-            element={
-              isAuthenticated ? (
-                <Channel onLogout={handleLogout} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          <Route
-            path="/channel/create"
-            element={
-              isAuthenticated ? <ChannelCreate /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="/channel/add-member"
-            element={
-              isAuthenticated ? <ChannelAddMember /> : <Navigate to="/login" />
-            }
-          />
-          <Route
-            path="/channel/:id"
-            element={isAuthenticated ? <Channel /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/channel/:id/add-member"
-            element={
-              isAuthenticated ? (
-                <ChannelAddMemberWrapper />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-          {/* You can add other routes like /message, /channel/:id here */}
-        </Routes>
-      </Router>
-    </DataProvider>
+      <DataProvider>
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/dashboard" />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/dashboard"
+              element={
+                isAuthenticated ? (
+                  <Dashboard onLogout={handleLogout} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/message"
+              element={
+                isAuthenticated ? (
+                  <Message onLogout={handleLogout} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/channel"
+              element={
+                isAuthenticated ? (
+                  <Channel onLogout={handleLogout} />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/channel/create"
+              element={
+                isAuthenticated ? <ChannelCreate /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/channel/add-member"
+              element={
+                isAuthenticated ? (
+                  <ChannelAddMember />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/channel/:id"
+              element={isAuthenticated ? <Channel /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/channel/:id/add-member"
+              element={
+                isAuthenticated ? (
+                  <ChannelAddMemberWrapper />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            {/* You can add other routes here */}
+          </Routes>
+        </Router>
+      </DataProvider>
     </div>
   );
 }

@@ -40,32 +40,59 @@ function ChannelAddMember({ onMemberAdded }) {
     // };
   
     return (
-      <div>
-        <select onChange={(e) => setSelectedUser(Number(e.target.value))}>
-          <option>Select user</option>
-          {userList.map(user => (
-            <option key={user.id} value={user.id}>{user.email}</option>
-          ))}
-        </select>
-        <button onClick={handleAdd}>Add to Channel</button>
-
-        {Array.isArray(channels) && channels.length > 0 ? (
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        {channels.map((ch) => (
-          <li
-            key={ch.id}
-            onClick={() => navigate(`/channel/${ch.id}`)}
-            style={{ cursor: "pointer", margin: "5px 0" }}
+      <div className="container mt-5 p-4 bg-light rounded shadow w-50">
+        <h3 className="mb-4 text-center">Add Member to Channel</h3>
+        
+        <div className="mb-3">
+          <label className="form-label">Select User</label>
+          <select
+            className="form-select"
+            onChange={(e) => setSelectedUser(Number(e.target.value))}
           >
-            {ch.name}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p>No channels found.</p>
-      )}
+            <option>Select user</option>
+            {userList.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.email}
+              </option>
+            ))}
+          </select>
+        </div>
+  
+        <div className="d-flex justify-content-between mb-4">
+          <button
+            className="btn btn-primary"
+            onClick={handleAdd}
+            disabled={!selectedUser}
+          >
+            Add to Channel
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate(`/channel/${channelId}`)}
+          >
+            Back to Channel
+          </button>
+        </div>
+  
+        <h5 className="mb-3">Your Channels</h5>
+        {Array.isArray(channels) && channels.length > 0 ? (
+          <ul className="list-group">
+            {channels.map((ch) => (
+              <li
+                key={ch.id}
+                onClick={() => navigate(`/channel/${ch.id}`)}
+                className="list-group-item list-group-item-action"
+                style={{ cursor: "pointer" }}
+              >
+                #{ch.name}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No channels found.</p>
+        )}
       </div>
-    )
+    );
   }
   
   export default ChannelAddMember;

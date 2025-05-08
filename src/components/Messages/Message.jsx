@@ -71,48 +71,47 @@ function Message() {
   }
 
   return (
-    <div>
-      {/* <div>{userList.length > 0 ? (
-        userList.map((individual) => {
-          const { id, email } = individual;
-          return (
-            <div key={id}>
-              <p>ID: {id}</p>
-              <p>Email: {email}</p>
-            </div>
-          );
-        })
-      ) : (
-        <p>No users available...</p>
-      )}</div> */}
-
-      <div className="w-50 h-100 position-relative start-50">
-        <button onClick={goBack}>Back</button>
-        {
-          !isReceiverSet &&
-          <form onSubmit={handleReceiver}>
+    <div className="container-fluid d-flex align-items-center justify-content-center vh-100 bg-light">
+      <div className="bg-white p-4 rounded shadow w-100" style={{ maxWidth: "800px", maxHeight: "95vh" }}>
+        
+        <button className="btn btn-outline-secondary mb-3" onClick={goBack}>← Back</button>
+  
+        {!isReceiverSet && (
+          <form onSubmit={handleReceiver} className="mb-4">
             <InputUser receiverInfo={receiverInfo} setReceiverInfo={setReceiverInfo} />
           </form>
-        }
+        )}
 
-        {
-          !isReceiverSet &&
-          <div className="card-message border border-dark rounded p-10 me-5"></div>
-        }
-
-        {
-          isReceiverSet &&
-          <div>
-            <h2>To: {receiverInfo}</h2>
-            <RetrieveMessage receiverID={receiverID} receiverClass={receiverClass} isMessageSent={isMessageSent} setIsMessageSent={setIsMessageSent} />
+        {!isReceiverSet && (
+          <div className="card-message border border-dark rounded p-4 mb-4">
           </div>
-        }
-
-        <form onSubmit={handleSubmit}>
-          <input type="textarea" disabled={receiverID ? false : true} placeholder="Type message here..." className="text-black w-75 h-100 border-2 border-black col-span-7 p-2" value={message} onChange={(e) => setMessage(e.target.value)} />
-          <button type="submit" className="btn btn-primary" disabled={message ? false : true}>Send</button>
+        )}
+  
+        {isReceiverSet && (
+          <div className="mb-4">
+            <h3 className="text-primary">To: {receiverInfo}</h3>
+            <RetrieveMessage
+              receiverID={receiverID}
+              receiverClass={receiverClass}
+              isMessageSent={isMessageSent}
+              setIsMessageSent={setIsMessageSent}
+            />
+          </div>
+        )}
+  
+        <form onSubmit={handleSubmit} className="d-flex flex-column align-items-start gap-3">
+          <textarea
+            disabled={!receiverID}
+            placeholder="Type your message here..."
+            className="form-control"
+            rows="4"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="submit" className="btn btn-primary w-100 mt-2" disabled={!message}>
+            Send
+          </button>
         </form>
-
       </div>
     </div>
   )
