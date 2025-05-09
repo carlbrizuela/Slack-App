@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router";
 import DataProvider from "./context/DataProvider";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";

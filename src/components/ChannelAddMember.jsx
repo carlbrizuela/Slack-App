@@ -3,7 +3,7 @@ import axios from "axios";
 import { useData } from "../context/DataProvider";
 import { API_URL } from "../constants/Constants";
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 function ChannelAddMember({ onMemberAdded }) {
     const { userList, userHeaders, channels } = useData()
