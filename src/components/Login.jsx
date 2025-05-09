@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../constants/Constants";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useData } from "../context/DataProvider";
 
 function Login(props) {

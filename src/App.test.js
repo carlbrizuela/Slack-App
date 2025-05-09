@@ -1,16 +1,14 @@
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import React from 'react'
-import '@testing-library/jest-dom'
-import {App, LocationDisplay} from './app'
-import {Router, MemoryRouter} from 'react-router-dom'
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
+import App from "./App";
 
-jest.mock("react-router-dom")
+test("renders login screen by default when not authenticated", () => {
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <App />
+    </MemoryRouter>
+  );
 
-test("Check email field", () => {
-  render( <MemoryRouter initialEntries={'/'}>
-    <App />
-  </MemoryRouter>)
-  const linkElement = screen.getByText("Email");
-  expect(linkElement).toBeInTheDocument();
+  const loginText = screen.getByText(/login/i);
+  expect(loginText).toBeInTheDocument();
 });
