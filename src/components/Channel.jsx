@@ -97,7 +97,6 @@ function Channel() {
       setIsChannelSet(true);
       fetchChannelMembers(selectedChannel.id)
     } else {
-      alert("Channel not found");
       navigate("/dashboard");
     }
   }, [channels, id, navigate, location.key]);
