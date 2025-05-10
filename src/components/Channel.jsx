@@ -8,6 +8,7 @@ import InputUser from "./Messages/InputUser"
 import { useParams } from "react-router"
 import { useEffect } from "react"
 import { useLocation } from "react-router";
+import Sidebar from "./Sidebar"
 
 function Channel() {
 
@@ -85,10 +86,6 @@ function Channel() {
     }
   };
 
-  const goBack = () => {
-    navigate("/dashboard")
-  }
-
   useEffect(() => {
     const selectedChannel = channels.find(channel => channel.id === Number(id));
     if (selectedChannel) {
@@ -97,65 +94,74 @@ function Channel() {
       setIsChannelSet(true);
       fetchChannelMembers(selectedChannel.id)
     } else {
-      alert("Channel not found");
       navigate("/dashboard");
     }
   }, [channels, id, navigate, location.key]);
 
   return (
-    <div className="container-fluid p-4">
-      <button className="btn btn-secondary mb-3" onClick={goBack}>← Back</button>
-
-      {isChannelSet && (
-        <div className="mb-4">
-          <h3 className="text-primary">Channel: #{channelName}</h3>
-          <button className="btn btn-outline-success mt-2" onClick={() => navigate(`/channel/${channelID}/add-member`)}>
-            + Add Member
-          </button>
+    <div className="container mx-0 px-0">
+      <div className="row">
+        <div className="col-3 vh-100">
+          <Sidebar />
         </div>
-      )}
+        <div className="col container-fluid p-4 ms-4">
+          {isChannelSet &&
+            <div className="d-flex justify-content-between">
+              <div>
+                <h3 className="text-primary">Channel: #{channelName}</h3>
+              </div>
+              <div className="d-flex flex-row align-items-center">
+                <div className="dropdown mb-2">
+                  <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    View Members
+                  </button>
+                  {channelMembers.length > 0 ? (
+                    <ul className="dropdown-menu">
+                      <li>
+                        <span className="dropdown-item" onClick={() => navigate(`/channel/${channelID}/add-member`)}>
+                          + Add Member
+                        </span>
+                      </li>
+                      {channelMembers.map(member => (
+                        <li key={member.id} className="dropdown-item">
+                          {member.email}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-muted">No members in this channel.</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          }
 
-      {isChannelSet && (
-        <div className="mb-4">
-          <h5>Channel Members</h5>
-          {channelMembers.length > 0 ? (
-            <ul className="list-group">
-              {channelMembers.map(member => (
-                <li key={member.id} className="list-group-item">
-                  {member.email}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-muted">No members in this channel.</p>
+          {isChannelSet && (
+            <div className="mb-4">
+              <RetrieveMessage
+                receiverID={channelID}
+                receiverClass="Channel"
+                isMessageSent={isMessageSent}
+                setIsMessageSent={setIsMessageSent}
+              />
+            </div>
           )}
-        </div>
-      )}
 
-      {isChannelSet && (
-        <div className="mb-4">
-          <RetrieveMessage
-            receiverID={channelID}
-            receiverClass="Channel"
-            isMessageSent={isMessageSent}
-            setIsMessageSent={setIsMessageSent}
-          />
+          <form onSubmit={handleSubmit} className="d-flex flex-column align-items-start gap-2">
+            <textarea
+              disabled={!channelID}
+              placeholder="Type your message here..."
+              className="form-control w-100"
+              rows="3"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button type="submit" className="btn btn-primary" disabled={!message}>
+              Send
+            </button>
+          </form>
         </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="d-flex flex-column align-items-start gap-2">
-        <textarea
-          disabled={!channelID}
-          placeholder="Type your message here..."
-          className="form-control w-100"
-          rows="3"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button type="submit" className="btn btn-primary" disabled={!message}>
-          Send
-        </button>
-      </form>
+      </div>
     </div>
   )
 }

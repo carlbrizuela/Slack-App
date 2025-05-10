@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useData } from "../context/DataProvider";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { API_URL } from "../constants/Constants";
 
 function MainArea({ onLogout }) {
   const { getUsers, userList, channels, fetchChannels, userHeaders } = useData();
@@ -22,8 +20,8 @@ function MainArea({ onLogout }) {
       </div>
 
       <section className="mb-5">
-        <h4 className="text-secondary">Users</h4>
-        <div className="row row-cols-1 row-cols-md-2 g-3">
+        <h4 className="text-secondary mb-3">Users</h4>
+        <div className="row row-cols-1 row-cols-md-2 g-3" style={{ maxHeight: "300px", overflowY:"scroll"}}>
           {Array.isArray(userList) && userList.length > 0 ? (
             <>
               {userList.slice(0, showAllUsers ? userList.length : 4).map(({ id, email }) => (
@@ -53,24 +51,23 @@ function MainArea({ onLogout }) {
         </div>
       </section>
 
-      <section className="mb-5">
-        <h4 className="text-secondary">Create Channel</h4>
+      <section>
+        <div className="d-flex flex-row justify-content-between">
+        <h4>Your Channels</h4>
         <button
-          className="btn btn-success shadow-sm"
+          className="btn btn-success shadow-sm me-2 mb-2"
           onClick={() => navigate("/channel/create")}
         >
           + New Channel
         </button>
-      </section>
-
-      <section>
-        <h4>Your Channels</h4>
+        </div>
+        <div className="channellist">
         {Array.isArray(channels) && channels.length > 0 ? (
           <ul className="list-group">
             {channels.map((ch) => (
               <li
                 key={ch.id}
-                className="list-group-item d-flex justify-content-between align-items-center"
+                className="channel-item list-group-item d-flex justify-content-between align-items-center"
               >
                 <span
                   onClick={() => navigate(`/channel/${ch.id}`)}
@@ -84,6 +81,7 @@ function MainArea({ onLogout }) {
         ) : (
           <p>No channels found.</p>
         )}
+        </div>
       </section>
     </div>
   );

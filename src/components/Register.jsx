@@ -73,7 +73,7 @@ function Register() {
     navigate("/login")
   }
   return (
-    <div className="w-100 d-flex flex-column mx-auto align-items-center">
+    <div className="vh-100 w-100 d-flex flex-column mx-auto align-items-center justify-content-center">
       <div className="input-form">
         <h2 className="mb-4">Register</h2>
         <form onSubmit={handleSubmit}>

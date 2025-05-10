@@ -6,8 +6,8 @@ function Sidebar(props) {
   const { onLogout } = props;
 
   return (
-    <div className="bg-secondary text-light p-3" style={{ width: "250px", minWidth: "250px" }}>
-      <h5 className="mb-4">Slack App</h5>
+    <div className="vh-100 bg-secondary text-light p-3" style={{ width: "250px", minWidth: "250px" }}>
+      <h5 className="mt-2 mb-4">Slack App</h5>
       <ul className="nav flex-column">
         <li className="nav-item mb-2">
           <span className="nav-link text-light" onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>Home</span>

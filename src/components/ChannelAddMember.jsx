@@ -11,7 +11,7 @@ function ChannelAddMember({ onMemberAdded }) {
     const navigate = useNavigate();
     const { id } = useParams();
     const channelId = Number(id);
-  
+ 
     const handleAdd = async () => {
       try {
         await axios.post(`${API_URL}/channel/add_member`, {
@@ -74,7 +74,7 @@ function ChannelAddMember({ onMemberAdded }) {
           </button>
         </div>
   
-        <h5 className="mb-3">Your Channels</h5>
+        {/* <h5 className="mb-3">Your Channels</h5>
         {Array.isArray(channels) && channels.length > 0 ? (
           <ul className="list-group">
             {channels.map((ch) => (
@@ -90,7 +90,7 @@ function ChannelAddMember({ onMemberAdded }) {
           </ul>
         ) : (
           <p>No channels found.</p>
-        )}
+        )} */}
       </div>
     );
   }

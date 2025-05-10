@@ -8,11 +8,13 @@ function Login(props) {
   const { onLogin } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] =useState("");
   const navigate = useNavigate();
   const { handleHeaders } = useData("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("")
     try {
       const loginCredentials = {
         email,
@@ -37,7 +39,8 @@ function Login(props) {
       }
     } catch (error) {
       if (error) {
-        return alert("Invalid credentials");
+        setErrorMessage("Invalid credentials")
+        setPassword(" ")
       }
     }
   };
@@ -47,7 +50,7 @@ function Login(props) {
   }
 
   return (
-    <div className="w-100 d-flex flex-column mx-auto align-items-center">
+    <div className="vh-100 w-100 d-flex flex-column mx-auto align-items-center justify-content-center">
       <div className="input-form">
         <h2 className="mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
@@ -57,22 +60,25 @@ function Login(props) {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onClick={(e) => setErrorMessage("")}
               className="form-control"
               placeholder="name@example.com"
             />
             <label for="floatingEmail">Email</label>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating">
             <input
               id="floatingPassword"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onClick={(e) => setErrorMessage("")}
               className="form-control"
               placeholder="password"
             />
-            <label for="floatingPassword">Password:</label>
+            <label for="floatingPassword">Password</label>
           </div>
+          <div className="mt-1 mb-3 small" style={{ color: "red" }}>{errorMessage}</div>
 
           <button className="btn btn-primary w-100" type="submit">Login</button>
         </form>

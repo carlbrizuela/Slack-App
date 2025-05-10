@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Message from "./components/Messages/Message";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 import Register from "./components/Register";
 import Channel from "./components/Channel";
@@ -29,7 +30,6 @@ function App() {
   }
 
   return (
-    <div className="d-flex align-items-center h-100">
       <DataProvider>
         <Router>
           <Routes>
@@ -109,7 +109,6 @@ function App() {
           </Routes>
         </Router>
       </DataProvider>
-    </div>
   );
 }
 
