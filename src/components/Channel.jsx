@@ -118,12 +118,12 @@ function Channel() {
                   {channelMembers.length > 0 ? (
                     <ul className="dropdown-menu">
                       <li>
-                        <span className="dropdown-item" onClick={() => navigate(`/channel/${channelID}/add-member`)}>
+                        <span className="dropdown-item" onClick={() => navigate(`/channel/${channelID}/add-member`)} style={{ cursor: "pointer" }}>
                           + Add Member
                         </span>
                       </li>
                       {channelMembers.map(member => (
-                        <li key={member.id} className="dropdown-item">
+                        <li key={member.id} className="dropdown-item" style={{ cursor: "pointer" }}>
                           {member.email}
                         </li>
                       ))}

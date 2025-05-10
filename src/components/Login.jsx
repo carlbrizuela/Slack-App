@@ -40,7 +40,7 @@ function Login(props) {
     } catch (error) {
       if (error) {
         setErrorMessage("Invalid credentials")
-        setPassword(" ")
+        setPassword("")
       }
     }
   };

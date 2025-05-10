@@ -60,7 +60,7 @@ html, body, #root{
 .card-message{
   position:relative;
   width: 100%;
-  height: 375px;
+  height: 60vh;
   overflow-y: scroll;
 }
 
