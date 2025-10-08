@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import MainArea from "./MainArea";
 import { BrowserRouter } from "react-router";
 
-// Mock navigate
 const mockNavigate = jest.fn();
 
 jest.mock("react-router", () => ({
